@@ -25,3 +25,5 @@ app.post('/api/workouts', (req,res) => {
 app.listen(process.env.PORT, () => {
     console.log(`server is running on ${process.env.PORT}`)
 })
+
+
