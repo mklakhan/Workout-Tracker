@@ -1,3 +1,4 @@
+console.log(" I am in the API.js file");
 const API = {
   async getLastWorkout() {
     let res;
@@ -7,11 +8,16 @@ const API = {
       console.log(err)
     }
     const json = await res.json();
+    console.log('API json is: ', json);
 
     return json[json.length - 1];
   },
   async addExercise(data) {
+    console.log("location.search is here!!", location.search);
+    console.log('PUT & addExercise fn data is here: ', data);
     const id = location.search.split("=")[1];
+
+    console.log("Logging out the 'id': ", id);
 
     const res = await fetch("/api/workouts/" + id, {
       method: "PUT",
@@ -24,6 +30,7 @@ const API = {
     return json;
   },
   async createWorkout(data = {}) {
+    console.log("POST & Creating a workout: ", data);
     const res = await fetch("/api/workouts", {
       method: "POST",
       body: JSON.stringify(data),
@@ -31,6 +38,12 @@ const API = {
     });
 
     const json = await res.json();
+  
+    console.log('location.search.split("=")[1]: ', location.search.split("=")[1]);
+
+    if (location.search.split("=")[1] === undefined) {
+      history.pushState(null, '', `/?id=${json.result._id}`);
+    }
 
     return json;
   },

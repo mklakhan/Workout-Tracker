@@ -1,3 +1,4 @@
+console.log(" I am in the EXERCISE.js file");
 const workoutTypeSelect = document.querySelector("#type");
 const cardioForm = document.querySelector(".cardio-form");
 const resistanceForm = document.querySelector(".resistance-form");
@@ -22,7 +23,7 @@ async function initExercise() {
 
   if (location.search.split("=")[1] === undefined) {
     workout = await API.createWorkout()
-    console.log(workout)
+    console.log("workout:", workout)
   }
   if (workout) {
     location.search = "?id=" + workout._id;
@@ -114,9 +115,20 @@ async function handleFormSubmit(event) {
     workoutData.duration = Number(resistanceDurationInput.value.trim());
   }
 
-  await API.addExercise(workoutData);
-  clearInputs();
-  toast.classList.add("success");
+  console.log(workoutData);
+
+  console.log("Test for id", location.search.split("=")[1] );
+
+  if (location.search.split("=")[1] === undefined) {
+    await API.createWorkout(workoutData);
+    clearInputs();
+    toast.classList.add("success");
+  } else {
+    await API.addExercise(workoutData);
+    clearInputs();
+    toast.classList.add("success");
+  }
+ 
 }
 
 function handleToastAnimationEnd() {
