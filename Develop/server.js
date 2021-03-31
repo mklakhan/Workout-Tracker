@@ -5,13 +5,16 @@ require("dotenv").config()
 const {router,routerRange} = require('./routes/workoutrouter')
 const app = express()
 
-mongoose.connect('mongodb://localhost:27017/workout', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true
-});
-
+mongoose.connect(
+    process.env.MONGODB_URI || 'mongodb://localhost/workout',
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false
+    }
+  );
+  
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
